@@ -1,0 +1,21 @@
+<ion-card class="tarjeta-comunitaria">
+  <ion-card-header>
+    <ion-card-title>{{ publicacionAviso.tituloAviso }}</ion-card-title>
+    <ion-card-subtitle>
+      Publicado el: {{ publicacionAviso.fechaCreacion | formatoFechaCl }}
+    </ion-card-subtitle>
+  </ion-card-header>
+
+  <img *ngIf="publicacionAviso.imagenAdjunta" [src]="publicacionAviso.imagenAdjunta" alt="Imagen del aviso" />
+
+  <ion-card-content>
+    <p>{{ publicacionAviso.detalleAviso }}</p>
+  </ion-card-content>
+
+  <div class="ion-text-right ion-padding-bottom ion-padding-horizontal">
+    <ion-button color="danger" fill="clear" (click)="onEliminarClick()">
+      <ion-icon slot="start" name="trash-outline"></ion-icon>
+      Eliminar
+    </ion-button>
+  </div>
+</ion-card>

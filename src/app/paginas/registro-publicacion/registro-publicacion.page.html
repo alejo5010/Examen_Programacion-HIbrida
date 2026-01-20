@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/muro-avisos"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Nuevo Aviso</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form [formGroup]="formularioAviso" (ngSubmit)="guardarAviso()">
+    
+    <ion-item fill="outline" mode="md" class="ion-margin-bottom">
+      <ion-label position="floating">Título del Aviso (Mín. 5 carac.)</ion-label>
+      <ion-input formControlName="titulo"></ion-input>
+    </ion-item>
+
+    <ion-item fill="outline" mode="md" class="ion-margin-bottom">
+      <ion-label position="floating">Detalle del Aviso (Mín. 20 carac.)</ion-label>
+      <ion-textarea formControlName="detalle" rows="4"></ion-textarea>
+    </ion-item>
+
+    <div class="ion-text-center ion-margin-vertical">
+      <ion-button (click)="tomarFotografia()" fill="outline" color="tertiary">
+        <ion-icon slot="start" name="camera"></ion-icon>
+        Capturar Evidencia
+      </ion-button>
+      
+      <div *ngIf="fotoCapturada" class="ion-margin-top">
+        <img [src]="fotoCapturada" style="border-radius: 8px; max-height: 200px;" />
+      </div>
+    </div>
+
+    <ion-button 
+      expand="block" 
+      type="submit" 
+      [disabled]="formularioAviso.invalid" 
+      class="ion-margin-top">
+      Publicar en la Comunidad
+    </ion-button>
+  </form>
+</ion-content>
