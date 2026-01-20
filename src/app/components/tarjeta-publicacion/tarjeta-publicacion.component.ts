@@ -8,7 +8,7 @@ import { PublicacionComunitaria } from '../../modelos/publicacion-comunitaria.mo
   templateUrl: './tarjeta-publicacion.component.html',
   styleUrls: ['./tarjeta-publicacion.component.scss'],
   standalone: true,
-  imports: [IonicModule, CommonModule, FormatoFechaClPipe]
+  imports: [IonicModule, CommonModule, FormatoPublicaciones]
 })
 export class TarjetaPublicacionComponent {
   /**
