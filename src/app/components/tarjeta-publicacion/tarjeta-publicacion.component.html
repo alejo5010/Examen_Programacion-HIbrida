@@ -18,4 +18,17 @@
       Eliminar
     </ion-button>
   </div>
+  <ion-item>
+  <ion-thumbnail slot="start" *ngIf="publicacionAviso.imagenAdjunta">
+    <img [src]="publicacionAviso.imagenAdjunta" />
+  </ion-thumbnail>
+  <ion-label>
+    <h2>{{ publicacionAviso.tituloAviso }}</h2>
+    <p>{{ publicacionAviso.fechaCreacion | formatoPublicacion }}</p>
+  </ion-label>
+  <ion-button slot="end" fill="clear" color="danger" (click)="onEliminarClick()">
+    <ion-icon name="trash-outline"></ion-icon>
+  </ion-button>
+</ion-item>
+
 </ion-card>

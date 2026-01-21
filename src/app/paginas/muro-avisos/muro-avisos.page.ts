@@ -16,7 +16,7 @@ import { FormatoPublicacionPipe } from '../../pipes/formato-publicacion.pipe';
   templateUrl: './muro-avisos.page.html',
   standalone: true,
   // TarjetaPublicacionComponent DEBE estar aquí para que el HTML lo reconozca
-  imports: [IonicModule, CommonModule, TarjetaPublicacionComponent] 
+  imports: [IonicModule, CommonModule, TarjetaPublicacionComponent, ] 
 })
 export class MuroAvisosPage implements OnInit {
   listaDeAvisos: PublicacionComunitaria[] = [];
@@ -39,6 +39,7 @@ export class MuroAvisosPage implements OnInit {
   private async cargarDatos() {
     this.listaDeAvisos = await this.gestionService.obtenerPublicaciones();
   }
+  
 
   async manejarEliminacion(id: string) {
     const modal = await this.modalCtrl.create({

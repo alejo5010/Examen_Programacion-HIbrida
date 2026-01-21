@@ -35,20 +35,16 @@ export class RegistroPublicacionPage {
   }
 
   // Instrucción 9: Captura de fotografía usando el plugin de la cámara
-  async tomarFotografia() {
-    try {
-      const image = await Camera.getPhoto({
-        quality: 90,
-        resultType: CameraResultType.DataUrl,
-        // 'Prompt' permite al usuario elegir entre Cámara o Galería
-        source: CameraSource.Prompt 
-      });
-      this.fotoCapturada = image.dataUrl;
-    } catch (error) {
-      console.error('Cámara cancelada o fallida', error);
-    }
-  }
+async tomarFotografia() {
+  const image = await Camera.getPhoto({
+    quality: 90,
+    allowEditing: false,
+    resultType: CameraResultType.DataUrl,
+    source: CameraSource.Prompt // Cambia a Prompt para probar mejor en web
+  });
+  this.fotoCapturada = image.dataUrl;
 
+}
   // Instrucción 4 y 6: Guardar con fecha automática y persistencia
   async guardarAviso() {
     if (this.formularioAviso.valid) {
