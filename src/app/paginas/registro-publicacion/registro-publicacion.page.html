@@ -11,14 +11,20 @@
   <form [formGroup]="formularioAviso" (ngSubmit)="guardarAviso()">
     
     <ion-item fill="outline" mode="md" class="ion-margin-bottom">
-      <ion-label position="floating">Título del Aviso (Mín. 5 carac.)</ion-label>
+      <ion-label position="floating">Título del Aviso</ion-label>
       <ion-input formControlName="titulo"></ion-input>
     </ion-item>
+    <ion-note color="danger" *ngIf="formularioAviso.get('titulo')?.touched && formularioAviso.get('titulo')?.invalid">
+      El título requiere al menos 5 caracteres.
+    </ion-note>
 
-    <ion-item fill="outline" mode="md" class="ion-margin-bottom">
-      <ion-label position="floating">Detalle del Aviso (Mín. 20 carac.)</ion-label>
+    <ion-item fill="outline" mode="md" class="ion-margin-bottom ion-margin-top">
+      <ion-label position="floating">Detalle del Aviso</ion-label>
       <ion-textarea formControlName="detalle" rows="4"></ion-textarea>
     </ion-item>
+    <ion-note color="danger" *ngIf="formularioAviso.get('detalle')?.touched && formularioAviso.get('detalle')?.invalid">
+      La descripción requiere al menos 20 caracteres.
+    </ion-note>
 
     <div class="ion-text-center ion-margin-vertical">
       <ion-button (click)="tomarFotografia()" fill="outline" color="tertiary">
@@ -30,7 +36,7 @@
         <img [src]="fotoCapturada" style="border-radius: 8px; max-height: 200px;" />
       </div>
     </div>
-
+      
     <ion-button 
       expand="block" 
       type="submit" 

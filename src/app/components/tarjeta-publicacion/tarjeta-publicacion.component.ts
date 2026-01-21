@@ -2,13 +2,14 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import { PublicacionComunitaria } from '../../modelos/publicacion-comunitaria.model';
+import { FormatoPublicacionPipe } from '../../pipes/formato-publicacion.pipe';
 
 @Component({
   selector: 'app-tarjeta-publicacion',
   templateUrl: './tarjeta-publicacion.component.html',
   styleUrls: ['./tarjeta-publicacion.component.scss'],
   standalone: true,
-  imports: [IonicModule, CommonModule, FormatoPublicaciones]
+  imports: [IonicModule, CommonModule, FormatoPublicacionPipe]
 })
 export class TarjetaPublicacionComponent {
   /**

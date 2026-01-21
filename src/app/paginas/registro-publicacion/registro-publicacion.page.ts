@@ -5,7 +5,7 @@ import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import { addIcons } from 'ionicons';
-import { camera, arrowBack } from 'ionicons/icons';
+import { camera, arrowBack, add } from 'ionicons/icons';
 import { GestionPublicacionesService } from '../../servicios/gestion-publicaciones.service';
 import { PublicacionComunitaria } from '../../modelos/publicacion-comunitaria.model';
 
@@ -17,40 +17,54 @@ import { PublicacionComunitaria } from '../../modelos/publicacion-comunitaria.mo
 })
 export class RegistroPublicacionPage {
   formularioAviso: FormGroup;
-  fotoBase64: string | undefined;
+  fotoCapturada: string | undefined; 
 
   constructor(
     private fb: FormBuilder,
     private gestionService: GestionPublicacionesService,
     private router: Router
   ) {
-    addIcons({ camera, arrowBack });
+    // Registro de iconos para que sean visibles
+    addIcons({ camera, arrowBack, add });
+
+    // Instrucción 8: Validaciones de formulario
     this.formularioAviso = this.fb.group({
       titulo: ['', [Validators.required, Validators.minLength(5)]],
       detalle: ['', [Validators.required, Validators.minLength(20)]]
     });
   }
 
-  async capturarFoto() {
-    const image = await Camera.getPhoto({
-      quality: 90,
-      resultType: CameraResultType.DataUrl,
-      source: CameraSource.Camera
-    });
-    this.fotoBase64 = image.dataUrl;
+  // Instrucción 9: Captura de fotografía usando el plugin de la cámara
+  async tomarFotografia() {
+    try {
+      const image = await Camera.getPhoto({
+        quality: 90,
+        resultType: CameraResultType.DataUrl,
+        // 'Prompt' permite al usuario elegir entre Cámara o Galería
+        source: CameraSource.Prompt 
+      });
+      this.fotoCapturada = image.dataUrl;
+    } catch (error) {
+      console.error('Cámara cancelada o fallida', error);
+    }
   }
 
-  async publicar() {
+  // Instrucción 4 y 6: Guardar con fecha automática y persistencia
+  async guardarAviso() {
     if (this.formularioAviso.valid) {
       const actuales = await this.gestionService.obtenerPublicaciones();
+      
       const nuevo: PublicacionComunitaria = {
         id: Date.now().toString(),
         tituloAviso: this.formularioAviso.value.titulo,
         detalleAviso: this.formularioAviso.value.detalle,
-        fechaCreacion: new Date(),
-        imagenAdjunta: this.fotoBase64
+        // Instrucción 6: Fecha automática
+        fechaCreacion: new Date(), 
+        imagenAdjunta: this.fotoCapturada
       };
+
       actuales.unshift(nuevo);
+      // Instrucción 4: Persistencia de datos
       await this.gestionService.guardarPublicaciones(actuales);
       this.router.navigate(['/muro-avisos']);
     }

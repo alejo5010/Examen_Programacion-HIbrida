@@ -4,16 +4,19 @@ import { CommonModule } from '@angular/common';
 import { addIcons } from 'ionicons';
 import { add, trashOutline, chatboxEllipsesOutline } from 'ionicons/icons';
 
+// IMPORTANTE: Verifica que estas rutas existan físicamente
 import { PublicacionComunitaria } from '../../modelos/publicacion-comunitaria.model';
 import { GestionPublicacionesService } from '../../servicios/gestion-publicaciones.service';
-import { TarjetaPublicacionComponent } from '../../componentes/tarjeta-publicacion/tarjeta-publicacion.component';
-import { DialogoConfirmacionComponent } from '../../componentes/dialogo-confirmacion/dialogo-confirmacion.component';
+import { TarjetaPublicacionComponent } from '../../components/tarjeta-publicacion/tarjeta-publicacion.component';
+import { DialogoConfirmacionComponent } from '../../components/dialogo-confirmacion/dialogo-confirmacion.components';
+import { FormatoPublicacionPipe } from '../../pipes/formato-publicacion.pipe';
 
 @Component({
   selector: 'app-muro-avisos',
   templateUrl: './muro-avisos.page.html',
   standalone: true,
-  imports: [IonicModule, CommonModule, TarjetaPublicacionComponent]
+  // TarjetaPublicacionComponent DEBE estar aquí para que el HTML lo reconozca
+  imports: [IonicModule, CommonModule, TarjetaPublicacionComponent] 
 })
 export class MuroAvisosPage implements OnInit {
   listaDeAvisos: PublicacionComunitaria[] = [];
@@ -22,7 +25,6 @@ export class MuroAvisosPage implements OnInit {
     private gestionService: GestionPublicacionesService,
     private modalCtrl: ModalController
   ) {
-    // Solución al error de addIcons: siempre dentro del constructor
     addIcons({ add, trashOutline, chatboxEllipsesOutline });
   }
 
@@ -41,7 +43,7 @@ export class MuroAvisosPage implements OnInit {
   async manejarEliminacion(id: string) {
     const modal = await this.modalCtrl.create({
       component: DialogoConfirmacionComponent,
-      componentProps: { mensajeCuerpo: '¿Deseas eliminar este aviso permanentemente?' }
+      componentProps: { mensajeCuerpo: '¿Deseas eliminar este aviso?' }
     });
     await modal.present();
     const { data } = await modal.onDidDismiss();
