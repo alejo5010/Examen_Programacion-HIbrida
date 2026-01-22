@@ -1,26 +1,24 @@
 import { Injectable } from '@angular/core';
-import { Preferences } from '@capacitor/preferences';
+import { Preferences } from '@capacitor/preferences'; // Asegúrate de importar esto
 import { PublicacionComunitaria } from '../modelos/publicacion-comunitaria.model';
 
 @Injectable({
-  providedIn: 'root' 
+  providedIn: 'root'
 })
 export class GestionPublicacionesService {
-  private readonly LLAVE_STORAGE = 'avisos_comunidad';
+  private readonly KEY_STORAGE = 'mis_avisos_guardados';
 
-  constructor() {}
-
-  // Instrucción 4: Guardar datos usando Preferences
-  async guardarPublicaciones(publicaciones: PublicacionComunitaria[]): Promise<void> {
+  async guardarPublicaciones(publicaciones: PublicacionComunitaria[]) {
+    // Convierte el array a texto para guardarlo
     await Preferences.set({
-      key: this.LLAVE_STORAGE,
+      key: this.KEY_STORAGE,
       value: JSON.stringify(publicaciones)
     });
   }
 
-  // Instrucción 4: Obtener datos usando Preferences
   async obtenerPublicaciones(): Promise<PublicacionComunitaria[]> {
-    const { value } = await Preferences.get({ key: this.LLAVE_STORAGE });
+    const { value } = await Preferences.get({ key: this.KEY_STORAGE });
+    // Si hay texto, lo convierte a array. Si es null, devuelve array vacío
     return value ? JSON.parse(value) : [];
   }
 }

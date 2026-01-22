@@ -46,17 +46,17 @@ async tomarFotografia() {
 
 }
   // Instrucción 4 y 6: Guardar con fecha automática y persistencia
-  async guardarAviso() {
-    if (this.formularioAviso.valid) {
-      const actuales = await this.gestionService.obtenerPublicaciones();
+ async guardarAviso() {
+  if (this.formularioAviso.valid) {
+    // 1. Obtener los viejos
+    const actuales = await this.gestionService.obtenerPublicaciones();
       
       const nuevo: PublicacionComunitaria = {
-        id: Date.now().toString(),
-        tituloAviso: this.formularioAviso.value.titulo,
-        detalleAviso: this.formularioAviso.value.detalle,
-        // Instrucción 6: Fecha automática
-        fechaCreacion: new Date(), 
-        imagenAdjunta: this.fotoCapturada
+      id: Date.now().toString(),
+      tituloAviso: this.formularioAviso.value.titulo,
+      detalleAviso: this.formularioAviso.value.detalle,
+      fechaCreacion: new Date(),
+      imagenAdjunta: this.fotoCapturada
       };
 
       actuales.unshift(nuevo);
