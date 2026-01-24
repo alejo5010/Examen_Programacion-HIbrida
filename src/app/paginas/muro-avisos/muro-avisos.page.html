@@ -11,7 +11,7 @@
   </div>
 
   <app-tarjeta-publicacion 
-    *ngFor="let aviso de listaDeAvisos" 
+    *ngFor="let aviso of listaDeAvisos" 
     [publicacionAviso]="aviso"
     (solicitarEliminacion)="manejarEliminacion($event)">
   </app-tarjeta-publicacion>

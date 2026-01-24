@@ -1,34 +1,20 @@
-<ion-card>
-  <ion-card-header>
-    <ion-card-title>{{ publicacionAviso.tituloAviso }}</ion-card-title>
-    <ion-card-subtitle>
-      Publicado el: {{ publicacionAviso.fechaCreacion | formatoPublicacion }}
-    </ion-card-subtitle>
-  </ion-card-header>
+<ion-card class="tarjeta-comunitaria">
+  <ion-item lines="none">
+    <ion-thumbnail slot="start" *ngIf="publicacionAviso.imagenAdjunta">
+      <img [src]="publicacionAviso.imagenAdjunta" alt="Aviso" />
+    </ion-thumbnail>
+    
+    <ion-label>
+      <h2 class="ion-text-wrap"><b>{{ publicacionAviso.tituloAviso }}</b></h2>
+      <p>{{ publicacionAviso.fechaCreacion | formatoPublicacion }}</p>
+    </ion-label>
 
-  <img *ngIf="publicacionAviso.imagenAdjunta" [src]="publicacionAviso.imagenAdjunta" alt="Imagen del aviso" />
-
-  <ion-card-content>
-    <p>{{ publicacionAviso.detalleAviso }}</p>
-  </ion-card-content>
-
-  <div class="ion-text-right ion-padding-bottom ion-padding-horizontal">
-    <ion-button color="danger" fill="clear" (click)="onEliminarClick()">
-      <ion-icon slot="start" name="trash-outline"></ion-icon>
-      Eliminar
+    <ion-button slot="end" fill="clear" color="danger" (click)="onEliminarClick()">
+      <ion-icon name="trash-outline"></ion-icon>
     </ion-button>
-  </div>
-  <ion-item>
-  <ion-thumbnail slot="start" *ngIf="publicacionAviso.imagenAdjunta">
-    <img [src]="publicacionAviso.imagenAdjunta" />
-  </ion-thumbnail>
-  <ion-label>
-    <h2>{{ publicacionAviso.tituloAviso }}</h2>
-    <p>{{ publicacionAviso.fechaCreacion | formatoPublicacion }}</p>
-  </ion-label>
-  <ion-button slot="end" fill="clear" color="danger" (click)="onEliminarClick()">
-    <ion-icon name="trash-outline"></ion-icon>
-  </ion-button>
-</ion-item>
-
+  </ion-item>
+  
+  <ion-card-content *ngIf="publicacionAviso.detalleAviso">
+    <p class="ion-text-wrap">{{ publicacionAviso.detalleAviso }}</p>
+  </ion-card-content>
 </ion-card>
